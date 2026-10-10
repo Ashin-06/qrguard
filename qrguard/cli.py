@@ -2,8 +2,9 @@
 import argparse
 import json
 import sys
+from pathlib import Path
 
-from qrguard import dest
+from qrguard import bench, dest, scan
 
 
 def _expect(a) -> dict:
@@ -24,9 +25,30 @@ def main(argv=None):
     c = sub.add_parser("check", help="check a payload string (URL, upi://pay, ...)")
     c.add_argument("payload")
     _expect_args(c)
+    sc = sub.add_parser("scan", help="scan a photo: overlay evidence + destination check of every code")
+    sc.add_argument("photo", nargs="+")
+    _expect_args(sc)
+    b = sub.add_parser("bench", help="run the synthetic benchmark")
+    b.add_argument("--n", type=int, default=40, help="photos per row (default 40)")
+    b.add_argument("--seed", type=int, default=1)
+    b.add_argument("--out", help="folder for results.json and results.md")
     a = p.parse_args(argv)
-    if a.cmd == "check":
-        print(json.dumps(dest.analyse(a.payload, _expect(a)), indent=2, ensure_ascii=False))
+    try:
+        if a.cmd == "check":
+            print(json.dumps(dest.analyse(a.payload, _expect(a)), indent=2, ensure_ascii=False))
+        elif a.cmd == "scan":
+            reps = [scan.scan_file(f, _expect(a)) for f in a.photo]
+            print(json.dumps(reps[0] if len(reps) == 1 else reps, indent=2, ensure_ascii=False))
+        elif a.cmd == "bench":
+            res = bench.run(a.n, a.seed)
+            md = bench.to_markdown(res)
+            if a.out:
+                Path(a.out).mkdir(parents=True, exist_ok=True)
+                (Path(a.out) / "results.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
+                (Path(a.out) / "results.md").write_text(md, encoding="utf-8")
+            print(md)
+    except (OSError, ValueError) as e:
+        p.error(f"{a.cmd}: {type(e).__name__}: {e}")
 
 
 if __name__ == "__main__":
