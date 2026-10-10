@@ -1,0 +1,19 @@
+[project]
+name = "qrguard"
+version = "0.1.0"
+description = "Catch overlay QR stickers: image evidence of an overlay plus destination checks"
+requires-python = ">=3.10"
+dependencies = ["opencv-python-headless>=4.8", "numpy>=1.24"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+qrguard = "qrguard.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["qrguard*"]
