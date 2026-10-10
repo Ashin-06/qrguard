@@ -73,3 +73,8 @@ def test_registered_payload_and_types():
     assert dest.classify("hello") == "text"
     assert sigs("hello", {"domains": ["parkmobile.io"]})["unexpected_type"] == "high"
     assert dest.analyse("https://", EXP)["risk"] == "high"
+
+
+def test_trailing_dot_host_is_the_same_domain():
+    r = dest.analyse("https://parkmobile.io./zone/1", EXP)
+    assert r["risk"] == "low" and "expected_domain" in {f["signal"] for f in r["findings"]}
