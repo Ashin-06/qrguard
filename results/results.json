@@ -1,0 +1,759 @@
+{
+  "seed": 1,
+  "n_per_case": 60,
+  "rows": [
+    {
+      "kind": "url",
+      "case": "genuine",
+      "tampered": false,
+      "n": 60,
+      "code_hidden_mean": 0.0,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 5,
+        "rate": 0.083,
+        "ci95": [
+          0.036,
+          0.181
+        ]
+      },
+      "destination": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      }
+    },
+    {
+      "kind": "url",
+      "case": "0.50",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.5,
+      "strict": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "sensitive": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "destination": {
+        "k": 58,
+        "rate": 0.967,
+        "ci95": [
+          0.886,
+          0.991
+        ]
+      },
+      "unreadable": {
+        "k": 2,
+        "rate": 0.033,
+        "ci95": [
+          0.009,
+          0.114
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "url",
+      "case": "0.60",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.648,
+      "strict": {
+        "k": 59,
+        "rate": 0.983,
+        "ci95": [
+          0.911,
+          0.997
+        ]
+      },
+      "sensitive": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "destination": {
+        "k": 59,
+        "rate": 0.983,
+        "ci95": [
+          0.911,
+          0.997
+        ]
+      },
+      "unreadable": {
+        "k": 1,
+        "rate": 0.017,
+        "ci95": [
+          0.003,
+          0.089
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "url",
+      "case": "0.70",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.796,
+      "strict": {
+        "k": 7,
+        "rate": 0.117,
+        "ci95": [
+          0.058,
+          0.222
+        ]
+      },
+      "sensitive": {
+        "k": 56,
+        "rate": 0.933,
+        "ci95": [
+          0.841,
+          0.974
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "url",
+      "case": "0.75",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.87,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 31,
+        "rate": 0.517,
+        "ci95": [
+          0.393,
+          0.638
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "url",
+      "case": "0.80",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.944,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 13,
+        "rate": 0.217,
+        "ci95": [
+          0.131,
+          0.336
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "url",
+      "case": "0.90",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 1.0,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 6,
+        "rate": 0.1,
+        "ci95": [
+          0.047,
+          0.201
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "url",
+      "case": "1.00",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 1.0,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 14,
+        "rate": 0.233,
+        "ci95": [
+          0.144,
+          0.354
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "genuine",
+      "tampered": false,
+      "n": 60,
+      "code_hidden_mean": 0.0,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 9,
+        "rate": 0.15,
+        "ci95": [
+          0.081,
+          0.261
+        ]
+      },
+      "destination": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "0.50",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.5,
+      "strict": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "sensitive": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "0.60",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.641,
+      "strict": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "sensitive": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "0.70",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.782,
+      "strict": {
+        "k": 20,
+        "rate": 0.333,
+        "ci95": [
+          0.227,
+          0.459
+        ]
+      },
+      "sensitive": {
+        "k": 59,
+        "rate": 0.983,
+        "ci95": [
+          0.911,
+          0.997
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "0.75",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.853,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 55,
+        "rate": 0.917,
+        "ci95": [
+          0.819,
+          0.964
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "0.80",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 0.924,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 28,
+        "rate": 0.467,
+        "ci95": [
+          0.346,
+          0.591
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "0.90",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 1.0,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 8,
+        "rate": 0.133,
+        "ci95": [
+          0.069,
+          0.242
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    },
+    {
+      "kind": "upi",
+      "case": "1.00",
+      "tampered": true,
+      "n": 60,
+      "code_hidden_mean": 1.0,
+      "strict": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "sensitive": {
+        "k": 8,
+        "rate": 0.133,
+        "ci95": [
+          0.069,
+          0.242
+        ]
+      },
+      "destination": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      },
+      "unreadable": {
+        "k": 0,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06
+        ]
+      },
+      "either": {
+        "k": 60,
+        "rate": 1.0,
+        "ci95": [
+          0.94,
+          1.0
+        ]
+      }
+    }
+  ],
+  "note": "genuine rows give false-alarm rates; tampered rows give detection rates"
+}
