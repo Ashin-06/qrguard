@@ -61,7 +61,7 @@ def check_url(url: str, expected_domains=()) -> list[dict]:
     out = []
     try:
         parts = urlsplit(url.strip())
-        host = (parts.hostname or "").lower()
+        host = (parts.hostname or "").lower().rstrip(".")  # "example.com." is the same host
     except ValueError as e:
         return [_f("malformed_url", "high", f"URL cannot be parsed: {e}")]
     if not host:

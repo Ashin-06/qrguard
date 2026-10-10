@@ -34,7 +34,7 @@ An early prototype, *XQR for Merchants* (Oct 2026), looks for image anomalies ar
 │   ├── bench.py                reproducible benchmark, Wilson intervals
 │   └── cli.py                  `qrguard` command
 ├── results/                    benchmark output (results.md, results.json)
-├── tests/
+├── tests/                      27 tests
 └── pyproject.toml
 ```
 
@@ -65,7 +65,7 @@ Image evidence alone fades once most of the code is hidden; the destination chec
 
 | Feature | Checked against | Status |
 |---|---|---|
-| Destination checks (payload, URL tricks, lookalikes, UPI payee/name/amount) | 13 targeted cases | ✅ tests |
+| Destination checks (payload, URL tricks, lookalikes, UPI payee/name/amount, trailing-dot hosts) | 14 targeted cases | ✅ tests |
 | Code finding (2 detectors x 2 scales), overlay signals | synthetic photos; side-by-side and stacked codes | ✅ tests |
 | Scan report, CLI, bad-input handling | synthetic photos | ✅ tests |
 | Benchmark reproducibility (fixed seed) | repeated runs | ✅ tests |

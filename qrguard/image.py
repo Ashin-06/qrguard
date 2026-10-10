@@ -3,6 +3,12 @@ import cv2
 import numpy as np
 
 
+def _gray(img: np.ndarray) -> np.ndarray:
+    if img.ndim == 2:
+        return img
+    return cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY if img.shape[2] == 4 else cv2.COLOR_BGR2GRAY)
+
+
 def load(path: str) -> np.ndarray:
     """Read an image (works with non-ASCII Windows paths, unlike cv2.imread)."""
     img = cv2.imdecode(np.fromfile(path, np.uint8), cv2.IMREAD_COLOR)
@@ -32,7 +38,7 @@ def _codes_from(detector, gray, scale):
 
 def find_codes(img: np.ndarray) -> list[dict]:
     """All QR codes, from two detectors and two scales, merged; decoded payload or None."""
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) if img.ndim == 3 else img
+    gray = _gray(img)
     found = []
     for scale in (1.0, 2.0) if max(gray.shape) < 1200 else (1.0,):
         g = gray if scale == 1.0 else cv2.resize(gray, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
@@ -50,7 +56,7 @@ def find_codes(img: np.ndarray) -> list[dict]:
 
 def finder_patterns(img: np.ndarray) -> list[dict]:
     """Candidate finder squares: a dark square ring around a dark square (contour nesting depth 2, area ratio ~49:9)."""
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) if img.ndim == 3 else img
+    gray = _gray(img)
     _, bw = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
     contours, hier = cv2.findContours(bw, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if hier is None:
@@ -102,11 +108,16 @@ def module_texture(img: np.ndarray, code: dict, near: int = 5, far: int = 12) ->
     m, M, pad = code.get("modules"), 10, far + 1
     if not m:
         return []
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) if img.ndim == 3 else img
+    gray = _gray(img)
     size = (m + 2 * pad) * M
     dst = np.float32([[pad, pad], [pad + m, pad], [pad + m, pad + m], [pad, pad + m]]) * M
-    H = cv2.getPerspectiveTransform(np.float32(code["corners"]), dst)
-    rect = cv2.warpPerspective(gray, H, (size, size), borderMode=cv2.BORDER_CONSTANT, borderValue=255)
+    try:
+        H = cv2.getPerspectiveTransform(np.float32(code["corners"]), dst)
+        if not np.all(np.isfinite(H)):
+            return []
+        rect = cv2.warpPerspective(gray, H, (size, size), borderMode=cv2.BORDER_CONSTANT, borderValue=255)
+    except cv2.error:  # degenerate corners from a bad detection: no texture verdict, not a crash
+        return []
     thr, _ = cv2.threshold(rect[pad * M:(pad + m) * M, pad * M:(pad + m) * M], 0, 255,
                            cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     dark = cv2.morphologyEx((rect < thr).astype(np.uint8), cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))

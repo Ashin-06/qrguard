@@ -64,3 +64,12 @@ def test_load_rejects_non_image(tmp_path):
         raise AssertionError("expected ValueError")
     except ValueError:
         pass
+
+
+def test_rgba_and_degenerate_corners_do_not_crash():
+    rgba = cv2.cvtColor(synth.qr_image("https://parkmobile.io/zone/7"), cv2.COLOR_BGR2BGRA)
+    assert [c["payload"] for c in image.find_codes(rgba)] == ["https://parkmobile.io/zone/7"]
+    assert image.overlay_signals(rgba)["findings"] == []
+    flat = {"payload": "x", "modules": 25, "corners": [[10, 10], [20, 20], [30, 30], [40, 40]],
+            "center": [25, 25], "side": 14.0}
+    assert image.module_texture(rgba, flat) == []
