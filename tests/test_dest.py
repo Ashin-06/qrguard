@@ -78,3 +78,22 @@ def test_registered_payload_and_types():
 def test_trailing_dot_host_is_the_same_domain():
     r = dest.analyse("https://parkmobile.io./zone/1", EXP)
     assert r["risk"] == "low" and "expected_domain" in {f["signal"] for f in r["findings"]}
+
+
+@pytest.mark.parametrize("url", ["https://parkmobile.io:not-a-port/pay", "https://parkmobile.io:65536/pay"])
+def test_invalid_ports_are_not_trusted(url):
+    assert sigs(url, EXP)["malformed_url"] == "high"
+
+
+def test_malformed_upi_is_reported_instead_of_raising():
+    assert dest.analyse("upi://[broken?pa=store@bank")["risk"] == "high"
+
+
+@pytest.mark.parametrize("query", [
+    "pa=store@bank&pa=other@bank", "pa=store@bank&PA=other@bank",
+    "pa=store@bank&am=1&am=999", "pa=store@bank&pn=Store&PN=Other",
+])
+def test_duplicate_payment_parameters_are_ambiguous(query):
+    result = dest.analyse("upi://pay?" + query, {"vpa": "store@bank"})
+    assert result["risk"] == "high"
+    assert any(f["signal"] == "upi_duplicate_parameter" for f in result["findings"])
