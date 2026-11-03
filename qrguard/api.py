@@ -34,7 +34,7 @@ ops.setup_logging(settings.log_level)
 engine = db.connect(settings.database_url)
 _lock = threading.Lock()
 
-app = FastAPI(title="QRGuard checking service", version="1.0.0")
+app = FastAPI(title="QRGuard checking service", version="1.0.1")
 ops.install(app, settings, {"database": lambda: engine.connect().close()})
 
 

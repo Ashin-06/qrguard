@@ -6,7 +6,7 @@ Offline and deterministic: nothing is fetched or resolved. Each finding is
 import ipaddress
 import re
 import unicodedata
-from urllib.parse import parse_qs, unquote, urlsplit
+from urllib.parse import parse_qsl, unquote, urlsplit
 
 SEVERITY = {"info": 0, "low": 1, "medium": 2, "high": 3}
 
@@ -62,6 +62,7 @@ def check_url(url: str, expected_domains=()) -> list[dict]:
     try:
         parts = urlsplit(url.strip())
         host = (parts.hostname or "").lower().rstrip(".")  # "example.com." is the same host
+        _ = parts.port  # Access validates numeric syntax and the port range.
     except ValueError as e:
         return [_f("malformed_url", "high", f"URL cannot be parsed: {e}")]
     if not host:
@@ -105,8 +106,20 @@ def check_url(url: str, expected_domains=()) -> list[dict]:
 
 
 def check_upi(payload: str, expected_vpa: str | None = None, expected_name: str | None = None) -> list[dict]:
-    parts = urlsplit(payload.strip())
-    q = {k.lower(): v[0] for k, v in parse_qs(parts.query, keep_blank_values=True).items()}
+    try:
+        parts = urlsplit(payload.strip())
+    except ValueError as e:
+        return [_f("malformed_upi", "high", f"UPI payload cannot be parsed: {e}")]
+    q, duplicates = {}, set()
+    for key, value in parse_qsl(parts.query, keep_blank_values=True):
+        key = key.lower()
+        if key in q:
+            duplicates.add(key)
+        q[key] = value
+    if duplicates:
+        return [_f("upi_duplicate_parameter", "high",
+                   f"UPI parameter {key!r} occurs more than once; payment details are ambiguous")
+                for key in sorted(duplicates)]
     out, pa = [], q.get("pa", "").strip()
     if not pa:
         return [_f("upi_no_payee", "high", "UPI payload has no payee address (pa)")]

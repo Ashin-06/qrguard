@@ -1,6 +1,6 @@
 import os
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 # OpenCV reads this once, when it is first imported, and every module here imports it through this
 # package. A photo may claim any size: refuse to decode more than 50 megapixels (a 12 MP phone photo

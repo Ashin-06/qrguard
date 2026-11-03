@@ -5,11 +5,11 @@ How to deploy and operate the checking service. Commands assume the repository r
 ## Deploy
 
 ```bash
-docker build -t qrguard:1.0.0 .
+docker build -t qrguard:1.0.1 .
 python -m qrguard.ops keygen            # one API key per inspector app, viewer and monitor
 docker run -d --name qrguard -p 8105:8105 -v qrguard-data:/data \
   -e QRGUARD_KEYS_FILE=/run/secrets/qrguard-keys.json \
-  qrguard:1.0.0
+  qrguard:1.0.1
 curl -fsS http://127.0.0.1:8105/readyz
 ```
 

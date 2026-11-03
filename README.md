@@ -1,6 +1,6 @@
 # QRGuard: Catching Overlay QR Stickers (Quishing and UPI Swaps)
 
-**Project 5 of 5** · Status: research complete, tool and checking API built and tested (39 tests), synthetic benchmark run, real-photo lab work pending
+**Project 5 of 5** · Status: research complete, tool and checking API built and tested (47 tests), synthetic benchmark run, real-photo lab work pending
 Research cut-off: 10 Oct 2026
 
 ## What this is
@@ -37,7 +37,7 @@ An early prototype, *XQR for Merchants* (Oct 2026), looks for image anomalies ar
 │   └── cli.py                  `qrguard` command
 ├── docs/                       threat model, runbook
 ├── results/                    benchmark output (results.md, results.json)
-├── tests/                      39 tests
+├── tests/                      47 tests
 └── pyproject.toml
 ```
 

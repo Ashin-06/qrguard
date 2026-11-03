@@ -2,6 +2,14 @@
 
 All notable changes to this project. Versions follow [semantic versioning](https://semver.org/).
 
+## 1.0.1 — 2026-11-03
+
+### Fixed
+- A UPI payload that repeats a parameter (`pa`, `am`, `pn`, in any letter case) is reported as
+  high risk: the payee or amount is ambiguous.
+- A malformed UPI payload or a URL with an invalid port is reported as a high-risk finding
+  instead of raising or being trusted.
+
 ## 1.0.0 — 2026-11-03
 
 ### Added
