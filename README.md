@@ -43,7 +43,7 @@ An early prototype, *XQR for Merchants* (Oct 2026), looks for image anomalies ar
 
 ## Tool
 ```bash
-python -m venv .venv && .venv/Scripts/pip install -r requirements-dev.lock -e .   # Linux/macOS: .venv/bin/pip
+python -m venv .venv && .venv/Scripts/python -m pip install -r requirements-dev.lock -e .   # Linux/macOS: .venv/bin/python
 pytest -q
 ```
 Offline: nothing is fetched or sent.
