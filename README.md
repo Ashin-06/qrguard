@@ -1,6 +1,6 @@
 # QRGuard: Catching Overlay QR Stickers (Quishing and UPI Swaps)
 
-**Project 5 of 5** · Status: research complete, tool built and tested, synthetic benchmark run, real-photo lab work pending
+**Project 5 of 5** · Status: research complete, tool and checking API built and tested (39 tests), synthetic benchmark run, real-photo lab work pending
 Research cut-off: 10 Oct 2026
 
 ## What this is
@@ -32,15 +32,18 @@ An early prototype, *XQR for Merchants* (Oct 2026), looks for image anomalies ar
 │   ├── scan.py                 photo -> one report (image evidence + destination per code)
 │   ├── synth.py                synthetic genuine/overlay photos with camera effects
 │   ├── bench.py                reproducible benchmark, Wilson intervals
+│   ├── api.py                  checking API with a log of every check
+│   ├── ops.py, db.py           settings, API keys, limits, logs, metrics; database and migrations
 │   └── cli.py                  `qrguard` command
+├── docs/                       threat model, runbook
 ├── results/                    benchmark output (results.md, results.json)
-├── tests/                      27 tests
+├── tests/                      39 tests
 └── pyproject.toml
 ```
 
 ## Tool
 ```bash
-python -m venv .venv && .venv/Scripts/pip install -e .[test]   # Linux/macOS: .venv/bin/pip
+python -m venv .venv && .venv/Scripts/pip install -r requirements-dev.lock -e .   # Linux/macOS: .venv/bin/pip
 pytest -q
 ```
 Offline: nothing is fetched or sent.
@@ -77,5 +80,37 @@ Image evidence alone fades once most of the code is hidden; the destination chec
 - **No reputation lookups or depth cues** (parallax/LiDAR for a raised sticker edge) yet: research/03 L4.
 - **Approximate public-suffix list**: registrable-domain logic uses a small built-in suffix list.
 
+## Checking API
+
+`qrguard serve` (or the container image, `docker build -t qrguard .`, see [docs/runbook.md](docs/runbook.md)) puts the payload and photo checks behind an API, for an inspector's app or a payment app.
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /v1/check` | a decoded payload against what was registered (`expect`: payload, domains, UPI ID, name) |
+| `POST /v1/scan` | a photo sent as the body; expectations as `expect_vpa`, `expect_name`, `expect_domain`, `expect_payload` query parameters |
+| `GET /v1/checks`, `/v1/checks/{id}` | the log: who checked which input (by SHA-256), the risk and signals; `?risk=high` filters |
+| `GET /healthz`, `/readyz`, `/metrics` | health, readiness and Prometheus metrics |
+
+Still offline: payloads are never fetched or sent. Photos and payloads are not stored, and images over 50 megapixels are refused before decoding. API keys carry a role: `inspector`, `viewer`, `monitor`. Create one with `python -m qrguard.ops keygen`.
+
+| Variable | Purpose |
+|---|---|
+| `QRGUARD_ENV=production` | refuse to start without hashed API keys and a database |
+| `QRGUARD_API_KEYS` / `QRGUARD_KEYS_FILE` | hashed API keys with roles |
+| `QRGUARD_DATABASE_URL` | the check log: `sqlite:///...` or `postgresql://...` |
+
+## Limitations
+
+- Validated on synthetic photos only; real stickers and signage may change the rates.
+- Without an expected destination a clean full cover is not caught.
+- The check log records input hashes but is not signed or hash-chained.
+- The code has not had an independent security review.
+
+See [SECURITY.md](SECURITY.md) and [docs/threat-model.md](docs/threat-model.md).
+
 ## Ethics in one line
 Test stickers go only on the project's own printed codes, never on public signs or real merchants' codes.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
