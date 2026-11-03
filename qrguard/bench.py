@@ -63,7 +63,7 @@ def to_markdown(res: dict) -> str:
            "| Code | Case | Code hidden | Strict image | Sensitive image | Destination check | Strict OR destination | Unreadable |",
            "|---|---|---|---|---|---|---|---|"]
     for r in res["rows"]:
-        cell = lambda k: f"{r[k]['rate']:.2f} ({r[k]['ci95'][0]:.2f}-{r[k]['ci95'][1]:.2f})"
+        cell = lambda k, r=r: f"{r[k]['rate']:.2f} ({r[k]['ci95'][0]:.2f}-{r[k]['ci95'][1]:.2f})"
         out.append(f"| {r['kind']} | {r['case']} | {r['code_hidden_mean']:.2f} | {cell('strict')} | {cell('sensitive')} | "
                    f"{cell('destination')} | {cell('either')} | {cell('unreadable')} |")
     return "\n".join(out) + "\n"

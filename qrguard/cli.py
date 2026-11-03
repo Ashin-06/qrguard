@@ -32,7 +32,13 @@ def main(argv=None):
     b.add_argument("--n", type=int, default=40, help="photos per row (default 40)")
     b.add_argument("--seed", type=int, default=1)
     b.add_argument("--out", help="folder for results.json and results.md")
+    sv = sub.add_parser("serve", help="checking API (settings: QRGUARD_* environment variables)")
+    sv.add_argument("--host", help="default QRGUARD_HOST or 127.0.0.1; any other address needs API keys")
+    sv.add_argument("--port", type=int, help="default QRGUARD_PORT or 8105")
+    sub.add_parser("migrate", help="apply database migrations to QRGUARD_DATABASE_URL")
     a = p.parse_args(argv)
+    if a.cmd in ("serve", "migrate"):
+        return _service(a)
     try:
         if a.cmd == "check":
             print(json.dumps(dest.analyse(a.payload, _expect(a)), indent=2, ensure_ascii=False))
@@ -49,6 +55,34 @@ def main(argv=None):
             print(md)
     except (OSError, ValueError) as e:
         p.error(f"{a.cmd}: {type(e).__name__}: {e}")
+
+
+def _service(a) -> int:
+    import os
+
+    from qrguard import db, ops
+
+    if a.cmd == "serve":
+        for flag, var in (("host", "QRGUARD_HOST"), ("port", "QRGUARD_PORT")):
+            if getattr(a, flag) is not None:
+                os.environ[var] = str(getattr(a, flag))
+    try:
+        settings = ops.load_settings()  # fail here, before uvicorn, with a readable message
+    except ops.ConfigError as e:
+        print(f"configuration error: {e}", file=sys.stderr)
+        return 1
+    if a.cmd == "migrate":
+        print(*(db.migrate(db.engine(settings.database_url)) or ["up to date"]), sep="\n")
+        return 0
+    import uvicorn
+
+    ops.setup_logging(settings.log_level)
+    try:
+        uvicorn.run("qrguard.api:app", host=settings.host, port=settings.port, log_config=None, access_log=False)
+    except ops.ConfigError as e:  # checks the API module makes when it loads
+        print(f"configuration error: {e}", file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
