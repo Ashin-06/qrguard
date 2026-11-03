@@ -6,3 +6,6 @@ build/
 dist/
 .venv/
 bench/
+.coverage
+coverage.xml
+.ruff_cache/
