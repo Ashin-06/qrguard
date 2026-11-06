@@ -12,7 +12,7 @@ SEVERITY = {"info": 0, "low": 1, "medium": 2, "high": 3}
 
 SHORTENERS = {"bit.ly", "tinyurl.com", "t.co", "goo.gl", "is.gd", "ow.ly", "buff.ly", "rebrand.ly", "cutt.ly",
               "shorturl.at", "tiny.cc", "rb.gy", "t.ly", "bl.ink", "lnkd.in", "s.id", "v.gd", "qrco.de", "short.io"}
-# ponytail: tiny public-suffix subset; use the full Public Suffix List if registrable-domain errors show up.
+# Tiny public-suffix subset; use the full Public Suffix List if registrable-domain errors show up.
 MULTI_SUFFIXES = {"co.uk", "org.uk", "gov.uk", "ac.uk", "com.au", "net.au", "org.au", "gov.au", "co.in", "net.in",
                   "org.in", "gov.in", "ac.in", "co.jp", "co.nz", "com.br", "com.mx", "co.za", "com.sg", "com.cn",
                   "co.kr", "com.tr", "com.ar"}
